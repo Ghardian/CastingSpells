@@ -1,5 +1,6 @@
 
 #include "Utils.h"
+#include "Grimorio.h"
 
 #include <vector>
 #include <iostream>
@@ -8,11 +9,8 @@
 using namespace std;
 using namespace CastingSpells;
 
-int main(int argc, char *argv[])
+void TestSplit()
 {
-
-	cout << "Hola Mundo" << endl;
-
 	vector<string> split = Utils::Split("hola;adios;hasta luego", ';');
 
 	cout << "El resultado es:" << endl;
@@ -21,6 +19,25 @@ int main(int argc, char *argv[])
 	{
 		cout << "[" << s << "]" << endl;
 	}
+}
+
+
+void TestGrimorio()
+{
+	Grimorio grimorio;
+
+	grimorio.LoadSpells();
+	grimorio.PrintSpells();
+
+}
+
+int main(int argc, char *argv[])
+{
+
+	cout << "Casting Spells !" << endl;
+
+	
+	TestGrimorio();
 
 	cin.get();
 

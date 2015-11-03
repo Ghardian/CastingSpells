@@ -1,0 +1,3 @@
+#NAME,ID,DESC,TYPE,VALUE,CD,SPAWN
+fire:1:Amazing ball of fire:1:100:1.0:1.0
+ice:2:Amazing ball of ice:1:120:1.2:1.6
