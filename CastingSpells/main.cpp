@@ -1,6 +1,7 @@
 
 #include "Utils.h"
 #include "Grimorio.h"
+#include "Wizard.h"
 
 #include <vector>
 #include <iostream>
@@ -31,13 +32,29 @@ void TestGrimorio()
 
 }
 
+void TestWizard()
+{
+	Grimorio grimorio;
+
+	grimorio.LoadSpells();
+	grimorio.PrintSpells();
+
+	vector<int> ids = {1,2};
+	vector<Spell> spells = grimorio.GetSpells(ids);
+
+	Wizard wizard("Potter", "Estudiante", 0, 100, 1, spells);
+
+	wizard.Save("potter.txt");
+
+}
+
 int main(int argc, char *argv[])
 {
 
 	cout << "Casting Spells !" << endl;
 
 	
-	TestGrimorio();
+	TestWizard();
 
 	cin.get();
 

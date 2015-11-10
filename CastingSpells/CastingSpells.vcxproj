@@ -122,12 +122,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grimorio.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="Wizard.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="spells.txt" />

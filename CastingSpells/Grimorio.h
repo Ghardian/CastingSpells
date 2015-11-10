@@ -14,6 +14,8 @@ namespace CastingSpells
 		void LoadSpells();
 
 		void PrintSpells();
+
+		std::vector<Spell> GetSpells(std::vector<int> ids);
 	};
 }
 

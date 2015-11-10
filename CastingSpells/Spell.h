@@ -21,6 +21,8 @@ namespace CastingSpells
 		float spawn;//Time to cast
 		float current_spawn;
 
+		
+
 	public:
 
 		std::string GetName();
@@ -34,7 +36,11 @@ namespace CastingSpells
 		
 		Spell(std::string name, int id, std::string description, SpellType type, int value, float cd, float spawn);
 
+		//Funciones
 		void Print();
+
+		bool IsReady();
+		void Update(int ms);
 	};
 }
 

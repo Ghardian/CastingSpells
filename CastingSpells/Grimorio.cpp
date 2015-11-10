@@ -83,3 +83,22 @@ void Grimorio::PrintSpells()
 		s.Print();
 	}
 }
+
+vector<Spell> Grimorio::GetSpells(vector<int> ids)
+{
+	vector<Spell> list;
+
+	for (int id: ids) 
+	{
+
+		for (Spell s : spells) 
+		{
+			if (s.GetId() == id) 
+			{
+				list.push_back(s);
+			}
+		}
+	}
+
+	return list;
+}

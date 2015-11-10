@@ -51,10 +51,22 @@ Spell::Spell(string name, int id, string description, SpellType type, int value,
 	this->spawn = spawn;
 
 	current_cd, current_spawn = 0;
+	
 }
 
 
 void Spell::Print()
 {
 	cout << "SpellName: " << name << " Description: " << description << endl;
+	//to do, acabar print
+}
+
+bool Spell::IsReady()
+{
+	return false;
+}
+
+void Spell::Update(int ms)
+{
+
 }
