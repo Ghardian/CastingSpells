@@ -1,4 +1,5 @@
 
+#include "Game.h"
 #include "Utils.h"
 #include "Grimorio.h"
 #include "Wizard.h"
@@ -54,9 +55,34 @@ int main(int argc, char *argv[])
 	cout << "Casting Spells !" << endl;
 
 	
-	TestWizard();
+	Wizard wizard = Wizard::Load("potter.txt");
+	
 
-	cin.get();
+	while (true)
+	{
+		string input;
+
+		cin >> input;
+
+		if (input == "quit")
+		{
+			break;
+		}
+
+		try
+		{
+			wizard.CastSpell(input);
+		}
+		catch (string msg)
+		{
+			cout << "Spell not found! try again [" <<input<<"]"<< endl;
+		}
+
+	}
+
+	Game::Quit();
+
+	//cin.get();
 
 	return 0;
 }

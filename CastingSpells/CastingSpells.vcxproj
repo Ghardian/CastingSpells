@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grimorio.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Spell.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Grimorio.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spell.h" />

@@ -1,5 +1,8 @@
 #include "Wizard.h"
+#include "Utils.h"
+#include "Game.h"
 
+#include <iostream>
 #include <fstream>
 
 using namespace std;
@@ -55,6 +58,7 @@ void Wizard::CastSpell(string spell_name)
 		if (s.GetName() == spell_name) 
 		{
 			//to do
+			cout << "!!! " << spell_name << " !!!" << endl;
 			found = true;
 		}
 	}
@@ -96,6 +100,33 @@ void Wizard::Save(string file_name)
 
 Wizard Wizard::Load(string file_name)
 {
-	//to do, load wizard (mirar el de grimorio)
-	return Wizard();
+	ifstream file;
+
+	file.open(file_name);
+
+	string line;
+	getline(file, line);
+
+	file.close();
+
+	vector<string> wizard_data = Utils::Split(line, ':');
+
+	string name=wizard_data[0];
+	string range = wizard_data[1];
+	int id = stoi(wizard_data[2]);
+	int hp = stoi(wizard_data[3]);
+	int lvl = stoi(wizard_data[4]);
+	
+	vector<string> s = Utils::Split(wizard_data[5], ',');
+	vector<int> spell_ids;
+	for (string i : s) 
+	{
+		spell_ids.push_back(stoi(i));
+	}
+
+	vector<Spell> spells = Game::GetGame()->GetGrimorio()->GetSpells(spell_ids);
+
+	Wizard wret(name,range,id,hp,lvl,spells);
+
+	return wret;
 }
