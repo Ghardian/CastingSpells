@@ -5,6 +5,7 @@
 using namespace std;
 using namespace CastingSpells;
 
+/*GETTERS OF SPELL ATRIBUTES*/
 string Spell::GetName()
 {
 	return name;
@@ -40,6 +41,7 @@ float Spell::GetSpawn()
 	return spawn;
 }
 
+/*SPELL CONSTRUCTOR*/
 Spell::Spell(string name, int id, string description, SpellType type, int value, float cd, float spawn)
 {
 	this->name = name;
@@ -54,16 +56,25 @@ Spell::Spell(string name, int id, string description, SpellType type, int value,
 	
 }
 
-
+/* FUNCTIONS: Print. Print the Spells */
 void Spell::Print()
 {
-	cout << "SpellName: " << name << " Description: " << description << endl;
-	//to do, acabar print
+	//convertir spell a string con un switch
+	//cout << "SpellName: " << name << ", Description: " << description << ", Id Spell: " << id << ", Type: " << type << ", Damage or Seconds Stunned: " << value << ", Cooldown: "<< cd << ", Ready in: "<< spawn << endl;
+	//Como hacia que en type pusiera el nombre y no el numero?
 }
 
+/* IsReady FUNCTION: returns true when current_spawn >= spawn and current_cooldown==0, and the spell will be ready to be spawned*/
 bool Spell::IsReady()
 {
-	return false;
+	if (current_spawn >= spawn && current_cd==0) 
+	{//donde actualizaremos current_spawn y current_cd?
+		return true;
+	}
+	else 
+	{ 
+		return false; 
+	}
 }
 
 void Spell::Update(int ms)

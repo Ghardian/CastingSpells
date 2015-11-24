@@ -1,3 +1,9 @@
-#NAME,ID,DESC,TYPE,VALUE,CD,SPAWN
-fire:1:Amazing ball of fire:1:100:1.0:1.0
-ice:2:Amazing ball of ice:1:120:1.2:1.6
+#NAME,ID,DESC,TYPE,VALUE,CD cooldown,time to get SPAWNed
+attack fireball:1:Amazing fireball that hurts the opponent:1:30:1.0:1.0
+attack frosty wind:2:Frosty blast of wind:1:70:2.4:1.2
+utility silence curse:3:Magic spell that causes Silence to the oponent erasing 50% of the spell:2:50:30.0:2.0
+deffense war cry:4: The wizard screams to raise def and atk status a 25%:3:25:15.0:1.50
+heal healing:5: Heals 25% of wizards HP:4:25:60.0:2.5
+heal Daanas blessing:6: Heals 60% of wizards HP:4:60:90.0:3.0
+deffense shield of ancients:7: A shield appears and protects the Wizard of reciving any damage:2:0:60.0:1.75
+utility nature trap:8:Roots start to grow and immobilise the oponent for 3 seconds:3:3:40.5:2.25

@@ -121,6 +121,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grimorio.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Npc.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Wizard.cpp" />
@@ -128,6 +130,8 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Grimorio.h" />
+    <ClInclude Include="Npc.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spell.h" />
     <ClInclude Include="Utils.h" />

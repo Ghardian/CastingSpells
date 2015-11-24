@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "Grimorio.h"
 #include "Wizard.h"
+#include "Player.h"
+#include "Npc.h"
 
 #include <vector>
 #include <iostream>
@@ -11,6 +13,10 @@
 using namespace std;
 using namespace CastingSpells;
 
+/*
+* Test: Utils function: Split
+*
+*/
 void TestSplit()
 {
 	vector<string> split = Utils::Split("hola;adios;hasta luego", ';');
@@ -49,34 +55,53 @@ void TestWizard()
 
 }
 
+
+/* MAIN FUNCTION
+* Print the Grimorio, Load the current wizard?, Try Spells
+*
+*/
 int main(int argc, char *argv[])
 {
-
+	
 	cout << "Casting Spells !" << endl;
 
 	
-	Wizard wizard = Wizard::Load("potter.txt");
+	//Wizard wizard = Wizard::Load("potter.txt");
+	Player player;
+	player.Load("potter.txt");
 	
+	Npc npc;
+	npc.Load("granger.txt");
+	
+
+	player.SetEnemy(&npc);
+	npc.SetEnemy(&player);
+
+
 
 	while (true)
 	{
 		string input;
 
-		cin >> input;
+		getline(cin,input);
 
 		if (input == "quit")
 		{
 			break;
 		}
 
-		try
+		if (input=="help")
 		{
-			wizard.CastSpell(input);
+			//ToDo:mostrar spells
 		}
-		catch (string msg)
+
+		if (input != "")
 		{
-			cout << "Spell not found! try again [" <<input<<"]"<< endl;
+			player.TrySpell(input);
 		}
+
+		player.Update(500);
+		npc.Update(500);
 
 	}
 

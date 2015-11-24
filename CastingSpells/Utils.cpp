@@ -5,7 +5,10 @@
 
 using namespace std;
 
+/* SPLIT FUNCTION
+Splits a string using a character as splitter. Returns a vector<string>
 
+*/
 vector<string> CastingSpells::Utils::Split(string str, char s)
 {
 	vector<string> tmp;

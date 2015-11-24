@@ -16,6 +16,9 @@ namespace CastingSpells
 		int hp;
 		int lvl;
 		std::vector<Spell> spells; //lista de spells
+
+		Wizard * enemy;
+
 	public:
 
 		Wizard(std::string name, std::string wizardRange, int id, int hp, int lvl,std::vector<Spell> spells);
@@ -26,11 +29,14 @@ namespace CastingSpells
 		int GetHP();
 		int GetLvl();
 
-		void Update(int ms);
+		void SetEnemy(Wizard * enemy);
+
+		//Virtual : se usa para que las clases que hereden de ti usen sus propias funciones con el mismo nombre(overload?)
+		virtual void Update(int ms);
 		void CastSpell(std::string spell_name);
 
 		void Save(std::string file_name);
-		static Wizard Load(std::string file_name);
+		void Load(std::string file_name);
 	
 	};
 }

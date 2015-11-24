@@ -15,11 +15,15 @@ Wizard::Wizard(string name,string wizardRange, int id, int hp, int lvl,vector<Sp
 	this->id = id;
 	this->hp = hp;
 	this->lvl = lvl;
-	this->spells = spells;	
+	this->spells = spells;
+	this->enemy = nullptr;
 }
+
+
 
 Wizard::Wizard()
 {
+	this->enemy = nullptr;
 }
 
 string Wizard::GetName()
@@ -40,6 +44,11 @@ int Wizard::GetHP()
 int Wizard::GetLvl()
 {
 	return lvl;
+}
+
+void CastingSpells::Wizard::SetEnemy(Wizard * enemy)
+{
+	this->enemy = enemy;
 }
 
 void Wizard::Update(int ms)
@@ -67,6 +76,7 @@ void Wizard::CastSpell(string spell_name)
 	{
 		throw string("spell not found");
 	}
+
 
 }
 
@@ -97,8 +107,10 @@ void Wizard::Save(string file_name)
 	file.close();
 
 }
-
-Wizard Wizard::Load(string file_name)
+/*LOAD FUNCTION. 
+Loads all the information of a wizard (name, wizards_range: Apprentice, Wizard, Great Wizard and Clock´s Tower Master; id_wizard, )
+*/
+void Wizard::Load(string file_name)
 {
 	ifstream file;
 
@@ -111,11 +123,11 @@ Wizard Wizard::Load(string file_name)
 
 	vector<string> wizard_data = Utils::Split(line, ':');
 
-	string name=wizard_data[0];
-	string range = wizard_data[1];
-	int id = stoi(wizard_data[2]);
-	int hp = stoi(wizard_data[3]);
-	int lvl = stoi(wizard_data[4]);
+	this->name=wizard_data[1];
+	this->wizardRange = wizard_data[2];
+	this->id = stoi(wizard_data[0]);
+	this->hp = stoi(wizard_data[3]);
+	this->lvl = stoi(wizard_data[4]);
 	
 	vector<string> s = Utils::Split(wizard_data[5], ',');
 	vector<int> spell_ids;
@@ -124,9 +136,6 @@ Wizard Wizard::Load(string file_name)
 		spell_ids.push_back(stoi(i));
 	}
 
-	vector<Spell> spells = Game::GetGame()->GetGrimorio()->GetSpells(spell_ids);
-
-	Wizard wret(name,range,id,hp,lvl,spells);
-
-	return wret;
+	this->spells = Game::GetGame()->GetGrimorio()->GetSpells(spell_ids);
+	
 }
