@@ -14,6 +14,6 @@ void Player::TrySpell(string spellname)
 	}
 	catch (string msg)
 	{
-		cout << "Spell not found! try again [" << spellname << "]" << endl;
+		cout << msg << endl;
 	}
 }

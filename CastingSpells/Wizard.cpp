@@ -24,6 +24,7 @@ Wizard::Wizard(string name,string wizardRange, int id, int hp, int lvl,vector<Sp
 Wizard::Wizard()
 {
 	this->enemy = nullptr;
+	this->warmingSpell = nullptr;
 }
 
 string Wizard::GetName()
@@ -51,8 +52,87 @@ void CastingSpells::Wizard::SetEnemy(Wizard * enemy)
 	this->enemy = enemy;
 }
 
+void Wizard::AddIncommingSpell(Spell * spell)
+{
+	incomingSpells.push_back(spell);
+}
+
 void Wizard::Update(int ms)
 {
+	//actualizamos el estado de los hechizos
+	for (Spell & s : spells)
+	{
+		s.Update(ms);
+	}
+
+	//comprobamos el area de calentamiento
+	if (warmingSpell != nullptr)
+	{
+		if (warmingSpell->IsWarm())//Ya esta preparado para castearse el spell (Is warm)
+		{
+			cout << "Spawned " << warmingSpell->GetName() << endl; //se lanza
+
+			switch (warmingSpell->GetType())
+			{
+			case SpellType::Deffense:
+			case SpellType::Heal:
+				ownSpells.push_back(warmingSpell);
+				warmingSpell->SetCurrentDuration(0);//Se resetea para comprobar si el hechizo ha terminado
+				cout << "duration: " << warmingSpell->GetDuration() << endl;
+				break;
+
+			case SpellType::Attack:
+			case SpellType::Utility:
+				enemy->AddIncommingSpell(warmingSpell);
+				warmingSpell->SetCurrentDuration(0);
+				break;
+			}
+
+			warmingSpell = nullptr;
+		}
+	}
+
+
+	//comprobamos los autohechizos
+	vector<Spell *> tmp;
+
+	for (Spell * s : ownSpells)
+	{
+		if (s->IsDone())
+		{
+			cout << "-This spell is done! " << s->GetName() << endl;
+			s->SetCurrentCD(0);
+		}
+		else
+		{
+			//ToDo (aplicarnos los hechizos)
+
+			tmp.push_back(s);
+		}
+	}
+
+	ownSpells = tmp;
+
+
+	//comprobamos los hechizos que nos afectan
+	vector<Spell*> tmpb;
+
+	for (Spell * s: incomingSpells)
+	{
+		if (s->IsDone())
+		{
+			cout << "-This spell is done! " << s->GetName() << endl;
+			s->SetCurrentCD(0);
+		}
+		else
+		{
+			//ToDo:aplicar daños
+
+			tmpb.push_back(s);
+		}
+	}
+
+	incomingSpells = tmp;
 
 }
 
@@ -61,14 +141,15 @@ void Wizard::CastSpell(string spell_name)
 
 
 	bool found = false;
+	Spell * spell=nullptr;
 
-	for (Spell s: spells) 
+	for (Spell & s: spells) 
 	{
 		if (s.GetName() == spell_name) 
 		{
-			//to do
 			cout << "!!! " << spell_name << " !!!" << endl;
 			found = true;
+			spell = &s;
 		}
 	}
 
@@ -77,6 +158,24 @@ void Wizard::CastSpell(string spell_name)
 		throw string("spell not found");
 	}
 
+	if (warmingSpell!=nullptr)
+	{
+		throw string("There is already a spell warming!");
+	}
+
+	if (!spell->IsCold())
+	{
+		throw string("Spell is not ready yet!");
+	}
+
+	if (!spell->IsDone())
+	{
+		throw string("Spell still working!");
+	}
+	
+	//Magia calentandose, a punto de ser lanzada
+	warmingSpell = spell;
+	warmingSpell->SetCurrentSpawn(0);
 
 }
 

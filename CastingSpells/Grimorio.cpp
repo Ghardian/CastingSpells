@@ -21,7 +21,7 @@ void Grimorio::LoadSpells()
 		getline(file, line);
 
 		vector<string> spell = Utils::Split(line,':');
-		if (spell.size() == 7) 
+		if (spell.size() == 8) 
 		{
 
 			string name;
@@ -32,9 +32,10 @@ void Grimorio::LoadSpells()
 			int value;
 			float cd;
 			float spawn;
+			float duration;
 
-			name = spell[0];
-			id = stoi(spell[1]);
+			name = spell[1];
+			id = stoi(spell[0]);
 			description = spell[2];
 			raw_type = stoi(spell[3]);
 			switch (raw_type)
@@ -59,9 +60,9 @@ void Grimorio::LoadSpells()
 			value = stoi(spell[4]);
 			cd = stof(spell[5]);
 			spawn = stof(spell[6]);
-
-
-			Spell tmp(name,id,description,type,value,cd,spawn);
+			duration = stof(spell[7]);
+			
+			Spell tmp(id,name,description,type,value,cd,spawn,duration);
 
 			spells.push_back(tmp);
 
