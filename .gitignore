@@ -44,3 +44,9 @@ Temporary Items
 CastingSpells/CastingSpells.sdf
 CastingSpells/CastingSpells.vcxproj.filters
 CastingSpells/.vs/CastingSpells/v14/.suo
+cocos2d
+proj.win32/.vs/CastingSpells/v14/.suo
+proj.win32/CastingSpells.sdf
+proj.win32/Debug.win32
+.vs
+*.aps
