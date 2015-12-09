@@ -10,6 +10,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{6da6128d-4f32-4727-a0f0-e2f7c844d4cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,26 +24,29 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Game.cpp">
+    <ClCompile Include="..\Classes\Game.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Grimorio.cpp">
+    <ClCompile Include="..\Classes\Grimorio.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Npc.cpp">
+    <ClCompile Include="..\Classes\Npc.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Player.cpp">
+    <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Spell.cpp">
+    <ClCompile Include="..\Classes\Spell.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Utils.cpp">
+    <ClCompile Include="..\Classes\Utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CastingSpells\Wizard.cpp">
+    <ClCompile Include="..\Classes\Wizard.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Intro.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,26 +59,29 @@
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Game.h">
+    <ClInclude Include="..\Classes\Game.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Grimorio.h">
+    <ClInclude Include="..\Classes\Grimorio.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Npc.h">
+    <ClInclude Include="..\Classes\Npc.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Player.h">
+    <ClInclude Include="..\Classes\Player.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Spell.h">
+    <ClInclude Include="..\Classes\Spell.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Utils.h">
+    <ClInclude Include="..\Classes\Utils.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CastingSpells\Wizard.h">
+    <ClInclude Include="..\Classes\Wizard.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Intro.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

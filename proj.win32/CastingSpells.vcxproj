@@ -144,27 +144,29 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\CastingSpells\Game.cpp" />
-    <ClCompile Include="..\CastingSpells\Grimorio.cpp" />
-    <ClCompile Include="..\CastingSpells\Npc.cpp" />
-    <ClCompile Include="..\CastingSpells\Player.cpp" />
-    <ClCompile Include="..\CastingSpells\Spell.cpp" />
-    <ClCompile Include="..\CastingSpells\Utils.cpp" />
-    <ClCompile Include="..\CastingSpells\Wizard.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\Game.cpp" />
+    <ClCompile Include="..\Classes\Grimorio.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Intro.cpp" />
+    <ClCompile Include="..\Classes\Npc.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\Spell.cpp" />
+    <ClCompile Include="..\Classes\Utils.cpp" />
+    <ClCompile Include="..\Classes\Wizard.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CastingSpells\Game.h" />
-    <ClInclude Include="..\CastingSpells\Grimorio.h" />
-    <ClInclude Include="..\CastingSpells\Npc.h" />
-    <ClInclude Include="..\CastingSpells\Player.h" />
-    <ClInclude Include="..\CastingSpells\Spell.h" />
-    <ClInclude Include="..\CastingSpells\Utils.h" />
-    <ClInclude Include="..\CastingSpells\Wizard.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\Game.h" />
+    <ClInclude Include="..\Classes\Grimorio.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Intro.h" />
+    <ClInclude Include="..\Classes\Npc.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\Spell.h" />
+    <ClInclude Include="..\Classes\Utils.h" />
+    <ClInclude Include="..\Classes\Wizard.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
