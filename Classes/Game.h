@@ -3,6 +3,9 @@
 
 #include "Grimorio.h"
 
+#include "Intro.h"
+#include "DuelRoom.h"
+
 namespace CastingSpells 
 {
 	class Game
@@ -11,6 +14,9 @@ namespace CastingSpells
 		static Game * instance;
 
 		Grimorio * grimorio;
+
+		Scene::Intro * introScene;
+		Scene::DuelRoom * duelroomScene;
 
 		Game();
 		~Game();
@@ -21,6 +27,9 @@ namespace CastingSpells
 		static void Quit();
 
 		Grimorio * GetGrimorio();
+
+		void GotoIntro();
+		void GotoDuelRoom();
 
 	};
 
