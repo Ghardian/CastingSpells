@@ -55,10 +55,10 @@ DuelRoom::DuelRoom() : cocos2d::Scene()
 
 	addChild(textInput, 2);
 
-	string error_txt = "";
-	textOutput = cocos2d::Label::create(error_txt, "Hobbiton Brushhand", 40);
-	textOutput->setPosition(800,50);
-	textOutput->setColor(cocos2d::ccc3(160,160,160));
+	//string error_txt = "";
+	textOutput = cocos2d::Label::create("TextOutput", "Hobbiton Brushhand", 40);
+	textOutput->setPosition(800,200);
+	textOutput->setColor(cocos2d::ccc3(225,225,40));
 
 	addChild(textOutput, 3);
 	
@@ -263,22 +263,15 @@ void DuelRoom::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Ev
 	case cocos2d::EventKeyboard::KeyCode::KEY_KP_ENTER:
 
 		tmp = textInput->getString();
-		try
-		{
-			player.TrySpell(tmp);
-		}
-		catch (string msg)
-		{
-			textOutput -> setString(msg);
-			textInput->setString("");
-		}
+		
+		player.TrySpell(tmp);
+		
 		
 		textInput->setString("");
 		//remove
 
 		break;
 	}
-
 
 }
 
@@ -287,6 +280,17 @@ void DuelRoom::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Ev
 void DuelRoom::update(float delta)
 {
 	int ms = delta * 1000;
+
+
+	vector<string> messages;
+	messages = player.GetMessages();
+
+	if (messages.size()>0)
+	{
+		string tmp = messages[0];
+		textOutput->setString(tmp);
+	}
+
 
 	player.Update(ms);
 	npc.Update(ms);

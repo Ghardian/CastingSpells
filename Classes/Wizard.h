@@ -21,6 +21,11 @@ namespace CastingSpells
 
 		std::vector<Spell*> ownSpells;//Spells casted by the wizard itself
 		std::vector<Spell*> incomingSpells;
+		std::vector<std::string> messages;
+
+		
+
+		
 
 	public:
 
@@ -41,6 +46,7 @@ namespace CastingSpells
 
 		void Save(std::string file_name);
 		void Load(std::string file_name);
+		std::vector<std::string> GetMessages();
 	
 	};
 }
