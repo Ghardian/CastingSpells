@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "Npc.h"
-
+#include "SimpleAudioEngine.h"
 
 namespace CastingSpells
 {
@@ -20,6 +20,7 @@ namespace CastingSpells
 			Npc npc;
 
 			cocos2d::Label * textInput;
+			cocos2d::Label * textOutput;
 			cocos2d::Sprite * textBackground;
 
 			void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);

@@ -24,14 +24,17 @@ Intro::Intro() : cocos2d::Scene()
 
 
 
-	//PRIMERITA LABEL, que no se si va, pero compila
-	cocos2d::CCLabelTTF* ttf1 = cocos2d::CCLabelTTF::create("Play", "Hobbiton Brushhand", 20, cocos2d::CCSizeMake(245, 32), cocos2d::kCCTextAlignmentCenter);
-	ttf1->setPosition(cocos2d::Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	//ttf1->setPosition(cocos2d::Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 3 + origin.y)); LABEL PLAY
+	cocos2d::CCLabelTTF* ttf1 = cocos2d::CCLabelTTF::create("Press any Key", "Hobbiton Brushhand", 80);
+	ttf1->setPosition(1280,900);
+	ttf1->setColor(cocos2d::ccc3(225, 225, 25));
+	//ttf1->enableShadow(cocos2d::Color4B::BLACK, 100, 0);
+//	ttf1->enableOutline
 	this->addChild(ttf1, 1);
+	//cocos2d::CCSizeMake(245, 32), cocos2d::kCCTextAlignmentCenter
+	
 
-	//static Label * 	createWithSystemFont(const std::string &text, const std::string &font, float fontSize, const Size &dimensions = Size::ZERO, TextHAlignment hAlignment = TextHAlignment::LEFT, TextVAlignment vAlignment = TextVAlignment::TOP)
-
-
+	//Evento presionar tecla
 	auto listener = cocos2d::EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(Intro::onKeyPressed, this);
 
