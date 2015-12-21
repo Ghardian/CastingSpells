@@ -14,6 +14,6 @@ void Player::TrySpell(string spellname)
 	}
 	catch (string msg)
 	{
-		messages.push_back(msg);
+		messages.push_back("message:"+msg);
 	}
 }

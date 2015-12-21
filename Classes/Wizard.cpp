@@ -143,13 +143,27 @@ void Wizard::CastSpell(string spell_name)
 	bool found = false;
 	Spell * spell=nullptr;
 
+	if (spell_name=="help")
+	{
+		string tmp = "";
+
+		for (Spell & s: spells)
+		{
+			tmp = tmp + s.GetName() + ", ";
+		}
+
+		messages.push_back("message:"+tmp);
+
+		return;
+	}
+
 	for (Spell & s: spells) 
 	{
 		if (s.GetName() == spell_name) 
 		{
 			cout << "!!! " << spell_name << " !!!" << endl;
-			string msg = "Lanzado el hechizo:  " + spell_name;
-			messages.push_back(msg);
+			
+			messages.push_back("action:cast:"+spell_name);
 
 			found = true;
 			spell = &s;
@@ -159,29 +173,25 @@ void Wizard::CastSpell(string spell_name)
 	if (found == false) 
 	{
 		throw string("spell not found");
-		string msg = "Spell" + spell_name + "not found";
-		messages.push_back(msg);
+	
 	}
 
 	if (warmingSpell!=nullptr)
 	{
 		throw string("There is already a spell warming!");
-		string msg = "There is already a spell warming!";
-		messages.push_back(msg);
+		
 	}
 
 	if (!spell->IsCold())
 	{
 		throw string("Spell is not ready yet!");
-		string msg = "Spell is not ready yet!";
-		messages.push_back(msg);
+		
 	}
 
 	if (!spell->IsDone())
 	{
 		throw string("Spell still working!");
-		string msg = "Spell still working!";
-		messages.push_back(msg);
+	
 	}
 	
 	//Magia calentandose, a punto de ser lanzada

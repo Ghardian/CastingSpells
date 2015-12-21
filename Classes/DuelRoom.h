@@ -6,22 +6,40 @@
 #include "Npc.h"
 #include "SimpleAudioEngine.h"
 
+#include <map>
+
 namespace CastingSpells
 {
 	namespace Scene
 	{
 		class DuelRoom : public cocos2d::Scene
 		{
+
+		private:
+			cocos2d::Label * textInput;
+			cocos2d::Label * textOutput;
+			cocos2d::Sprite * textBackground;
+
+			float textTimer;
+
+			cocos2d::Size visibleSize;
+
 		public:
 
 			DuelRoom();
 
 			Player player;
 			Npc npc;
+			int posPlayerX;
+			int posPlayerY;
+			int posNpcX;
+			int posNpcY;
+			int playerSizeX;
+			int playerSizeY;
+			int npcSizeX;
+			int npcSizeY;
 
-			cocos2d::Label * textInput;
-			cocos2d::Label * textOutput;
-			cocos2d::Sprite * textBackground;
+			 
 
 			void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
@@ -29,7 +47,7 @@ namespace CastingSpells
 			void update(float delta);
 
 			//overrided from Scene
-			void OnEnter();
+			void onEnter();
 
 		};
 	}

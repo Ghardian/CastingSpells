@@ -11,8 +11,13 @@ void Npc::Update(int ms)
 {
 	Wizard::Update(ms);
 
-	int sid = rand() % spells.size();
+	if (spells.size() > 0)
+	{
+		int sid = rand() % spells.size();
+
+
+		cout << "[" << name << "] Te lanzo un: " << spells[sid].GetName() << endl;
+	}
 
 	
-	cout << "["<<name<<"] Te lanzo un: " << spells[sid].GetName() << endl;
 }
