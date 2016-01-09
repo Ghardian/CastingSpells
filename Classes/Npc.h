@@ -10,6 +10,8 @@ namespace CastingSpells
 	class Npc : public Wizard
 	{
 	private:
+		std::string attack_spell_name;
+		int typing_time;
 
 	public:
 

@@ -13,10 +13,33 @@ void Npc::Update(int ms)
 
 	if (spells.size() > 0)
 	{
-		int sid = rand() % spells.size();
+
+		if (attack_spell_name == "")
+		{
+			//seleccionar hechizo de ataque
+
+			//hardcoded attack
+			attack_spell_name = "attack fireball";
+			typing_time = 300 * attack_spell_name.size(); //ms por tecla * numero de teclas necesarias
+		}
 
 
-		cout << "[" << name << "] Te lanzo un: " << spells[sid].GetName() << endl;
+		typing_time -= ms;
+
+		if (typing_time <= 0)
+		{
+			try
+			{
+				CastSpell(attack_spell_name);
+			}
+			catch (string msg)
+			{
+
+			}
+			attack_spell_name = "";
+		}
+
+		
 	}
 
 	

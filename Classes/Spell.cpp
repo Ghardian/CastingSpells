@@ -75,7 +75,7 @@ Spell::Spell(int id,string name, string description, SpellType type, int value, 
 
 	current_cd = cd;
 	current_spawn = 0;
-	current_duration = duration;
+	current_duration = 0;
 	
 }
 

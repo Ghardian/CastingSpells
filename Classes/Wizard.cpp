@@ -107,6 +107,8 @@ void Wizard::Update(int ms)
 		{
 			//ToDo (aplicarnos los hechizos)
 
+			
+
 			tmp.push_back(s);
 		}
 	}
@@ -121,12 +123,25 @@ void Wizard::Update(int ms)
 	{
 		if (s->IsDone())
 		{
-			cout << "-This spell is done! " << s->GetName() << endl;
+			messages.push_back("message:spell is gone " + s->GetName());
 			s->SetCurrentCD(0);
 		}
 		else
 		{
 			//ToDo:aplicar daños
+
+			if (s->GetType() == SpellType::Attack)
+			{
+				int ouch = s->GetValue();
+				hp -= ouch;
+
+				messages.push_back("message:damage of " + std::to_string(ouch));
+
+				if (hp < 0)
+				{
+					messages.push_back("action:die");
+				}
+			}
 
 			tmpb.push_back(s);
 		}

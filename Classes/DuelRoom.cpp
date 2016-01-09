@@ -78,6 +78,18 @@ DuelRoom::DuelRoom() : cocos2d::Scene()
 	addChild(textOutput, 3);
 	
 	
+	textPlayerLife = cocos2d::Label::create("--","Harry P",50);
+	textPlayerLife->setPosition(30,700);
+	textPlayerLife->setColor(cocos2d::ccc3(225, 225, 40));
+
+	addChild(textPlayerLife,10);
+
+
+	textNPCLife = cocos2d::Label::create("--", "Harry P", 50);
+	textNPCLife->setPosition(1200, 700);
+	textNPCLife->setColor(cocos2d::ccc3(225, 225, 40));
+
+	addChild(textNPCLife,10);
 
 	auto listener = cocos2d::EventListenerKeyboard::create();
 	listener->onKeyPressed= CC_CALLBACK_2(DuelRoom::onKeyPressed, this);
@@ -302,116 +314,31 @@ void DuelRoom::update(float delta)
 	textTimer += delta;
 
 
-	if (textTimer > 4.0f)
+	if (textTimer > 2.5f)
 	{
-		textOutput->setString("");
+		if (msg_queue.size() == 0)
+		{
+			textOutput->setString("");
+		}
+		else
+		{
+			textOutput->setString(msg_queue.front());
+			msg_queue.pop();
+			textTimer = 0.0f;
+		}
 	}
 
 	vector<string> messages;
 	messages = player.GetMessages();
 	
-	if (messages.size()>0)
-	{
-		string tmp = messages[0];
-		vector<string> msgdata=Utils::Split(tmp,':');
-
-		if (msgdata[0] == "message")
-		{
-			textOutput->setString(msgdata[1]);
-			textTimer = 0.0f;
-		}
-
-		if (msgdata[0] == "action")
-		{
-			if(msgdata[1]=="cast")
-			{
-				if (msgdata[2] == "attack fireball")
-				{
-					textOutput->setString("Casted " + msgdata[2]);
-					textTimer = 0.0f;
-					
-					auto fireball=cocos2d::Sprite::create("fireball.png");
-					
-					fireball->setPosition(cocos2d::Vec2(posPlayerX+20, posPlayerY+10));
-
-					auto callbackDie = cocos2d::CallFunc::create([this,fireball]() {
-						this->removeChild(fireball, true);
-					});
-
-					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posNpcX, posNpcY));
-					auto seq = cocos2d::Sequence::create(action, callbackDie, nullptr);
-					fireball->runAction(seq);
-					
-					addChild(fireball);
-				}
-
-
-				if (msgdata[2] == "utility silence curse") 
-				{
-					textOutput->setString("Casted " + msgdata[2]);
-					textTimer = 0.0f;
-
-					auto silence = cocos2d::Sprite::create("silence.png");
-
-					silence->setPosition(cocos2d::Vec2(posNpcX, posNpcY+50));
-
-					auto callbackDie = cocos2d::CallFunc::create([this, silence]() {
-						this->removeChild(silence, true);});
-
-					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posNpcX+10, posNpcY-100));
-					auto seq = cocos2d::Sequence::create(action, callbackDie, nullptr);
-					silence->runAction(seq);
-
-					addChild(silence);
-				}
-
-				if (msgdata[2] == "deffense shield of ancients")
-				{
-					textOutput->setString("Casted " + msgdata[2]);
-					textTimer = 0.0f;
-
-					auto shield = cocos2d::Sprite::create("shield.png");
-
-					shield->setPosition(cocos2d::Vec2(posPlayerX+20, posPlayerY+20));
-
-					auto callbackDie = cocos2d::CallFunc::create([this, shield]() {
-						this->removeChild(shield, true); });
-
-					auto action = cocos2d::RotateBy::create(2.0f, 180.0f);
-					auto action2 = cocos2d::ScaleBy::create(2.0f, 1.2f);
-					auto seq = cocos2d::Sequence::create(action,action2, callbackDie, nullptr);
-					shield->runAction(seq);
-
-					addChild(shield);
-				}
-				
-				if (msgdata[2] == "attack thunderstruck")
-				{
-					textOutput->setString("Casted " + msgdata[2]);
-					textTimer = 0.0f;
-
-					auto thunder = cocos2d::Sprite::create("rayo.png");
-
-					thunder->setPosition(cocos2d::Vec2(posNpcX, posNpcY + 30));
-
-					auto callbackDie = cocos2d::CallFunc::create([this, thunder]() {
-						this->removeChild(thunder, true); });
-
-					auto action = cocos2d::RotateTo::create(1.5f, 15.0f);
-					auto action2 = cocos2d::ScaleBy::create(2.5f, 1.5f);
-					auto seq = cocos2d::Sequence::create(action, action2, callbackDie, nullptr);
-					thunder->runAction(seq);
-
-					addChild(thunder);
-				}
-
-				
-			}
-		}
-
+	ProcessPlayerMessages(messages);
 		
-	}
+	messages = npc.GetMessages();
 
+	ProcessNPCMessages(messages);
+
+	textPlayerLife->setString(std::to_string(player.GetHP()));
+	textNPCLife->setString(std::to_string(npc.GetHP()));
 
 	player.Update(ms);
 	npc.Update(ms);
@@ -426,4 +353,176 @@ void Scene::DuelRoom::onEnter()
 
 	player.SetEnemy(&npc);
 	npc.SetEnemy(&player);
+}
+
+
+void DuelRoom::PushMessage(string msg)
+{
+	string t;
+
+	for (char c :msg)
+	{
+		t = t + c;
+
+		if (t.size() > 32)
+		{
+			msg_queue.push(t + "...");
+			t = "...";
+		}
+	}
+
+	if (t.size() > 0)
+	{
+		msg_queue.push(t);
+	}
+}
+
+void DuelRoom::ProcessPlayerMessages(std::vector<std::string> messages)
+{
+	for (string msg : messages)
+	{
+
+		string tmp = msg;
+		vector<string> msgdata = Utils::Split(tmp, ':');
+
+		if (msgdata[0] == "message")
+		{
+			PushMessage(msgdata[1]);
+		}
+
+		if (msgdata[0] == "action")
+		{
+			if (msgdata[1] == "die")
+			{
+
+			}
+
+			if (msgdata[1] == "cast")
+			{
+				if (msgdata[2] == "attack fireball")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto fireball = cocos2d::Sprite::create("fireball.png");
+
+					fireball->setPosition(cocos2d::Vec2(posPlayerX + 20, posPlayerY + 10));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, fireball]() {
+						this->removeChild(fireball, true);
+					});
+
+					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posNpcX, posNpcY));
+					auto seq = cocos2d::Sequence::create(action, callbackDie, nullptr);
+					fireball->runAction(seq);
+
+					addChild(fireball);
+					fireball->setLocalZOrder(100);
+				}
+
+
+				if (msgdata[2] == "utility silence curse")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto silence = cocos2d::Sprite::create("silence.png");
+
+					silence->setPosition(cocos2d::Vec2(posNpcX, posNpcY + 50));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, silence]() {
+						this->removeChild(silence, true); });
+
+					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posNpcX + 10, posNpcY - 100));
+					auto seq = cocos2d::Sequence::create(action, callbackDie, nullptr);
+					silence->runAction(seq);
+
+					addChild(silence);
+				}
+
+				if (msgdata[2] == "deffense shield of ancients")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto shield = cocos2d::Sprite::create("shield.png");
+
+					shield->setPosition(cocos2d::Vec2(posPlayerX + 20, posPlayerY + 20));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, shield]() {
+						this->removeChild(shield, true); });
+
+					auto action = cocos2d::RotateBy::create(2.0f, 180.0f);
+					auto action2 = cocos2d::ScaleBy::create(2.0f, 1.2f);
+					auto seq = cocos2d::Sequence::create(action, action2, callbackDie, nullptr);
+					shield->runAction(seq);
+
+					addChild(shield);
+
+				}
+
+				if (msgdata[2] == "attack thunderstruck")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto thunder = cocos2d::Sprite::create("rayo.png");
+
+					thunder->setPosition(cocos2d::Vec2(posNpcX, posNpcY + 30));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, thunder]() {
+						this->removeChild(thunder, true); });
+
+					auto action = cocos2d::RotateTo::create(1.5f, 15.0f);
+					auto action2 = cocos2d::ScaleBy::create(2.5f, 1.5f);
+					auto seq = cocos2d::Sequence::create(action, action2, callbackDie, nullptr);
+					thunder->runAction(seq);
+
+					addChild(thunder);
+
+					thunder->setLocalZOrder(100);
+				}
+
+
+			}
+		}
+
+
+	}
+}
+
+void DuelRoom::ProcessNPCMessages(std::vector<std::string> messages)
+{
+	for (string msg : messages)
+	{
+
+		string tmp = msg;
+		vector<string> msgdata = Utils::Split(tmp, ':');
+
+
+		if (msgdata[0] == "action")
+		{
+			if (msgdata[1] == "cast")
+			{
+				if (msgdata[2] == "attack fireball")
+				{
+
+					auto fireball = cocos2d::Sprite::create("fireball.png");
+
+					fireball->setPosition(cocos2d::Vec2(posNpcX - 20, posNpcY - 10));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, fireball]() {
+						this->removeChild(fireball, true);
+					});
+
+					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posPlayerX, posPlayerY));
+					auto seq = cocos2d::Sequence::create(action, callbackDie, nullptr);
+					fireball->runAction(seq);
+
+					addChild(fireball);
+					fireball->setLocalZOrder(100);
+				}
+			}
+		}
+	}
 }

@@ -7,6 +7,7 @@
 #include "SimpleAudioEngine.h"
 
 #include <map>
+#include <queue>
 
 namespace CastingSpells
 {
@@ -18,8 +19,14 @@ namespace CastingSpells
 		private:
 			cocos2d::Label * textInput;
 			cocos2d::Label * textOutput;
+
+
+			cocos2d::Label * textPlayerLife;
+			cocos2d::Label * textNPCLife;
+
 			cocos2d::Sprite * textBackground;
 
+			std::queue<std::string> msg_queue;
 			float textTimer;
 
 			cocos2d::Size visibleSize;
@@ -48,6 +55,11 @@ namespace CastingSpells
 
 			//overrided from Scene
 			void onEnter();
+
+			void PushMessage(std::string msg);
+
+			void ProcessPlayerMessages(std::vector<std::string> messages);
+			void ProcessNPCMessages(std::vector<std::string> messages);
 
 		};
 	}
