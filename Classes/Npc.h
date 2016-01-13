@@ -4,6 +4,7 @@
 #include "Wizard.h"
 
 #include <string>
+#include <vector>
 
 namespace CastingSpells
 {
@@ -12,6 +13,7 @@ namespace CastingSpells
 	private:
 		std::string attack_spell_name;
 		int typing_time;
+		
 
 	public:
 

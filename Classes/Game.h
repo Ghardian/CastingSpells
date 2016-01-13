@@ -5,6 +5,7 @@
 
 #include "Intro.h"
 #include "DuelRoom.h"
+#include "GameOver.h"
 
 namespace CastingSpells 
 {
@@ -17,6 +18,7 @@ namespace CastingSpells
 
 		Scene::Intro * introScene;
 		Scene::DuelRoom * duelroomScene;
+		Scene::GameOver * gameoverScene;
 
 		Game();
 		~Game();
@@ -30,6 +32,7 @@ namespace CastingSpells
 
 		void GotoIntro();
 		void GotoDuelRoom();
+		void GotoGameOver();
 
 	};
 

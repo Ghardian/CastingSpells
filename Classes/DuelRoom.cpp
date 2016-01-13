@@ -3,6 +3,7 @@
 #include <ui\CocosGUI.h>
 #include <iostream>
 #include "SimpleAudioEngine.h"
+#include "Game.h"
 
 using namespace std;
 using namespace CastingSpells;
@@ -39,7 +40,7 @@ DuelRoom::DuelRoom() : cocos2d::Scene()
 
 
 	//Player and Enemy Sprites
-	string enemy="NPC_2.png";
+	string enemy="NPC_1.png";
 	string player = "main_boy_pj.png";
 
 
@@ -79,7 +80,7 @@ DuelRoom::DuelRoom() : cocos2d::Scene()
 	
 	
 	textPlayerLife = cocos2d::Label::create("--","Harry P",50);
-	textPlayerLife->setPosition(30,700);
+	textPlayerLife->setPosition(50,700);
 	textPlayerLife->setColor(cocos2d::ccc3(225, 225, 40));
 
 	addChild(textPlayerLife,10);
@@ -355,7 +356,9 @@ void Scene::DuelRoom::onEnter()
 	npc.SetEnemy(&player);
 }
 
-
+/*
+Mensajes del Grimorio
+*/
 void DuelRoom::PushMessage(string msg)
 {
 	string t;
@@ -364,7 +367,7 @@ void DuelRoom::PushMessage(string msg)
 	{
 		t = t + c;
 
-		if (t.size() > 32)
+		if (t.size() > 38)
 		{
 			msg_queue.push(t + "...");
 			t = "...";
@@ -394,7 +397,7 @@ void DuelRoom::ProcessPlayerMessages(std::vector<std::string> messages)
 		{
 			if (msgdata[1] == "die")
 			{
-
+				Game::GetGame()->GotoGameOver();
 			}
 
 			if (msgdata[1] == "cast")
@@ -475,7 +478,8 @@ void DuelRoom::ProcessPlayerMessages(std::vector<std::string> messages)
 
 					auto action = cocos2d::RotateTo::create(1.5f, 15.0f);
 					auto action2 = cocos2d::ScaleBy::create(2.5f, 1.5f);
-					auto seq = cocos2d::Sequence::create(action, action2, callbackDie, nullptr);
+					auto action3 = cocos2d::FadeIn::create(1.0f);
+					auto seq = cocos2d::Sequence::create(action3, action ,action2, callbackDie, nullptr);
 					thunder->runAction(seq);
 
 					addChild(thunder);
@@ -483,13 +487,18 @@ void DuelRoom::ProcessPlayerMessages(std::vector<std::string> messages)
 					thunder->setLocalZOrder(100);
 				}
 
+				
+
 
 			}
+		
 		}
 
-
 	}
+
 }
+
+
 
 void DuelRoom::ProcessNPCMessages(std::vector<std::string> messages)
 {
@@ -502,6 +511,11 @@ void DuelRoom::ProcessNPCMessages(std::vector<std::string> messages)
 
 		if (msgdata[0] == "action")
 		{
+			if (msgdata[1] == "die")
+			{
+				Game::GetGame()->GotoGameOver();
+			}
+
 			if (msgdata[1] == "cast")
 			{
 				if (msgdata[2] == "attack fireball")
@@ -522,6 +536,59 @@ void DuelRoom::ProcessNPCMessages(std::vector<std::string> messages)
 					addChild(fireball);
 					fireball->setLocalZOrder(100);
 				}
+
+
+				if (msgdata[2] == "attack frosty wind")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto wind = cocos2d::Sprite::create("frosty_wind.png");
+
+					wind->setPosition(cocos2d::Vec2(posNpcX - 20, posNpcY - 10));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, wind]() {
+						this->removeChild(wind, true);
+					});
+
+					auto action = cocos2d::MoveTo::create(0.5, cocos2d::Vec2(posPlayerX, posPlayerY));
+					auto fadeOut = cocos2d::FadeOut::create(2.5f);
+
+					auto seq = cocos2d::Sequence::create(action, fadeOut, callbackDie, nullptr);
+					wind->runAction(seq);
+
+					addChild(wind);
+					wind->setLocalZOrder(100);
+				}
+
+				if (msgdata[2] == "deffense war cry")
+				{
+
+					PushMessage("Casted " + msgdata[2]);
+
+					auto warcry = cocos2d::Sprite::create("furia.png");
+
+					warcry->setPosition(cocos2d::Vec2(posNpcX + 5, posNpcY +5));
+
+					auto callbackDie = cocos2d::CallFunc::create([this, warcry]() {
+						this->removeChild(warcry, true);
+					});
+
+			
+					auto fadeOut = cocos2d::FadeOut::create(1.5f);
+
+					auto seq = cocos2d::Sequence::create( fadeOut, callbackDie, nullptr);
+					warcry->runAction(seq);
+
+					addChild(warcry);
+					warcry->setLocalZOrder(100);
+				}
+				
+
+				
+
+
+
 			}
 		}
 	}

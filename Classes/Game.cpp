@@ -18,6 +18,7 @@ Game::Game()
 
 	introScene = new Scene::Intro();
 	duelroomScene = new Scene::DuelRoom();
+	gameoverScene = new Scene::GameOver();
 		
 }
 
@@ -60,4 +61,11 @@ void CastingSpells::Game::GotoDuelRoom()
 	auto director = cocos2d::Director::getInstance();
 
 	director->replaceScene(duelroomScene);
+}
+
+void CastingSpells::Game::GotoGameOver()
+{
+	auto director = cocos2d::Director::getInstance();
+
+	director->replaceScene(gameoverScene);
 }

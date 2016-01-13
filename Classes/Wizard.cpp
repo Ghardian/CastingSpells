@@ -119,6 +119,7 @@ void Wizard::Update(int ms)
 	//comprobamos los hechizos que nos afectan
 	vector<Spell*> tmpb;
 
+	/*DAMAGES*/
 	for (Spell * s: incomingSpells)
 	{
 		if (s->IsDone())
